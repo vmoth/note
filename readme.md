@@ -7,3 +7,11 @@ Java不可以实现多重继承，但是我们可以给一个累添加多个内�
 
 为什么java HashMap 加载因子是0.75
 http://www.ruanyifeng.com/blog/2015/06/poisson-distribution.html
+
+
+PUT /msgcenter-12/_settings
+{
+"index" : {
+"number_of_replicas":0
+}
+}
