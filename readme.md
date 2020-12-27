@@ -15,3 +15,5 @@ PUT /msgcenter-12/_settings
 "number_of_replicas":0
 }
 }
+
+wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
