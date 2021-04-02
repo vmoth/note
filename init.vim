@@ -19,7 +19,7 @@ noremap <Leader>Y "+y
 noremap <Leader>P "+p
 " 设置快捷键将系统剪贴板内容粘贴至 vim
 " 定义快捷键关闭当前分割窗口
-nmap <Leader>qq :q<CR>
+nmap <Leader>jj :q<CR>
 " 定义快捷键保存当前窗口内容
 nmap <Leader>w :w<CR>
 " 定义快捷键保存所有窗口内容并退出 vim
@@ -27,7 +27,7 @@ nmap <Leader>WQ :wa<CR>:q<CR>
 " 不做任何保存，直接退出 vim
 nmap <Leader>Q :qa!<CR>
 " 依次遍历子窗口
-nnoremap nw <C-W><C-W>
+"nnoremap nw <C-W><C-W>
 " 跳转至右方的窗口
 nnoremap <Leader>lw <C-W>l
 " 跳转至左方的窗口
@@ -108,6 +108,7 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 "Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
+Plug 'altercation/vim-colors-solarized'
 "Plug 'Yggdroot/LeaderF'
 " 插件列表结束
 call plug#end()
@@ -116,7 +117,7 @@ filetype plugin indent on
 
 fun! GotoWindow(id)
     call win_gotoid(a:id)
-    MaximizerToggle
+    "MaximizerToggle
 endfun
 
 set backspace=2
@@ -156,6 +157,7 @@ set hlsearch
 " 设置 gvim 显示字体
 "set guifont=Consolas:h11:cANSI
 "set guifont=Fira\ Code:h11
+set guifont=Input\ Mono:h11
 "g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 
@@ -241,6 +243,7 @@ nmap <Leader>tp :tprevious<CR>
 " Ensure the buffer for building code opens in a new view
 set switchbuf=useopen,split
 
+let g:vimspector_enable_mappings = 'VISUAL_STUDIO'
 " Debugger remaps
 nnoremap <leader>mm :MaximizerToggle!<CR>
 nnoremap <leader>dd :call vimspector#Launch()<CR>
