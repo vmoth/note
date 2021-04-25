@@ -61,13 +61,15 @@ set rtp+=~/.vim/bundle/Vundle.vim
 Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim'
 Plug 'tomasr/molokai'
+Plug 'liuchengxu/vista.vim'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/phd'
 "Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'nathanaelkane/vim-indent-guides'
+"Plug 'nathanaelkane/vim-indent-guides'
+Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
 "Plug 'derekwyatt/vim-fswitch'
 "Plug 'kshenoy/vim-signature'
@@ -84,7 +86,7 @@ Plug 'scrooloose/nerdcommenter'
 "Plug 'Valloric/YouCompleteMe'
 Plug 'derekwyatt/vim-protodef'
 Plug 'scrooloose/nerdtree'
-Plug 'fholgado/minibufexpl.vim'
+"Plug 'fholgado/minibufexpl.vim'
 Plug 'Shougo/vimproc.vim',
 Plug 'kana/vim-operator-user',
 Plug 'rhysd/vim-clang-format',
@@ -109,6 +111,11 @@ Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
 Plug 'altercation/vim-colors-solarized'
+Plug 'arcticicestudio/nord-vim'
+
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 "Plug 'Yggdroot/LeaderF'
 " 插件列表结束
 call plug#end()
@@ -124,6 +131,7 @@ set backspace=2
 let g:syntastic_java_checkers = []
 " 配色方案
 set background=dark
+"colorscheme nord
 colorscheme dracula
 " 禁止光标闪烁
 " set gcr=a:block-blinkon0
@@ -156,8 +164,12 @@ set cursorcolumn
 set hlsearch
 " 设置 gvim 显示字体
 "set guifont=Consolas:h11:cANSI
-"set guifont=Fira\ Code:h11
-set guifont=Input\ Mono:h11
+set guifont=Fira\ Mono\ for\ Powerline:h13
+"set guifont=agave\ Nerd\ Font
+"set guifont=agave\ Nerd\ Font\ Mono:h13
+"set guifont=Yuanti\ SC:h13
+"set guifont=Source\ Code\ Pro\ for\ Powerline:h13
+"set guifont=Input\ Mono:h13
 "g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 
@@ -196,6 +208,8 @@ nmap <silent> <Leader>sw :FSHere<cr>
 
 " 使用 NERDTree 插件查看工程文件。设置快捷键，速记：file list
 nmap <Leader>fl :NERDTreeToggle<CR>
+nmap <Leader>fs :NERDTreeFocus<CR>
+
 nmap <Leader>ff :CtrlP<CR>
 nmap <Leader>fm :ClangFormat<CR>
 nmap <leader>aa :CocAction<CR>
@@ -268,6 +282,10 @@ nmap <leader>drc <Plug>VimspectorRunToCursor
 nmap <leader>dbp <Plug>VimspectorToggleBreakpoint
 nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
+nmap <leader>t :NERDTreeFind<CR>
+
+nmap <F1> :CocCommand java.debug.vimspector.start<CR>
+
  
 " Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
 " error message formats
@@ -301,15 +319,15 @@ nnoremap <Leader>f :call CocAction('runCommand', 'prettier.formatFile')<CR>
 
 
 " coc config
-"let g:coc_global_extensions = [
-"  \ 'coc-snippets',
-"  \ 'coc-pairs',
-"  \ 'coc-tsserver',
-"  \ 'coc-eslint', 
-"  \ 'coc-prettier', 
-"  \ 'coc-json', 
-"  \ 'coc-java', 
-"  \ ]
+let g:coc_global_extensions = [
+  \ 'coc-snippets',
+  \ 'coc-pairs',
+  \ 'coc-tsserver',
+  \ 'coc-eslint', 
+  \ 'coc-prettier', 
+  \ 'coc-json', 
+  \ 'coc-java', 
+  \ ]
 " ctrlp
 let g:ctrlp_user_command = ['.git/', 'git --git-dir=%s/.git ls-files -oc --exclude-standard']
 
@@ -377,7 +395,7 @@ endfunction
 
 " Use <c-space> to trigger completion.
 if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
+  inoremap <silent><expr> <M-space> coc#refresh()
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
@@ -510,3 +528,29 @@ let g:ctrlp_custom_ignore = {
   \ 'file': '\v\.(exe|so|dll|class|jar)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
+
+"------------for vista
+function! NearestMethodOrFunction() abort
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
+set statusline+=%{NearestMethodOrFunction()}
+
+" By default vista.vim never run if you don't call it explicitly.
+"
+" If you want to show the nearest function in your statusline automatically,
+" you can add the following line to your vimrc
+autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
+
+
+let g:neovide_cursor_vfx_mode = "railgun"
+
+" Using lua functions
+nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
+nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
+nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
+nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+nnoremap <leader>fp <cmd>lua require('telescope.builtin').oldfiles()<cr>
+
+map <Leader><leader>h <Plug>(easymotion-linebackward)
+map <Leader><leader>l <Plug>(easymotion-lineforward)
