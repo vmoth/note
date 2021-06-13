@@ -1,0 +1,8 @@
+Stepping          Switch                 Breakpoints         Debug                     Eval
+----------------------------------------------------------------------------------------------------------------
+n: Next           ss: Session            bb: Toggle          dd: Debug                 ee: Eval
+i: Step in        st: Thread             bd: Delete          dr: Debug recent          er: Eval region
+o: Step out       sf: Stack frame        ba: Add             dl: Debug last            es: Eval thing at point
+c: Continue       sl: List locals        bc: Set condition   de: Edit debug template   ea: Add expression.
+r: Restart frame  sb: List breakpoints   bh: Set hit count
+Q: Disconnect     sS: List sessions      bl: Set log message
