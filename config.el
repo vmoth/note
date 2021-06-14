@@ -1,6 +1,4 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
-;;(require 'dap-lldb)
-;;(require 'dap-gdb-lldb)
 (require 'dap-cpptools)
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
@@ -36,8 +34,8 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
+;;(setq display-line-numbers-type t)
 (setq display-line-numbers-type 'relative)
-;;(setq display-line-numbers 'relative)
 
 
 ;; Here are some additional functions/macros that could help you configure Doom:
@@ -56,5 +54,19 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
-;;(global-set-key (kdb "f5") 'dap-debug)
 (global-set-key [f5] 'dap-debug)
+(global-set-key [f9] 'dap-breakpoint-toggle)
+(global-set-key [f10] 'dap-next)
+(global-set-key [f11] 'dap-step-in)
+(global-set-key [f6] 'dap-hydra)
+(global-set-key [f7] 'dap-hydra/nil)
+(map! :leader
+      :desc "lsp goto implementation"
+      "g i" #'lsp-goto-implementation)
+(map! :leader
+      :desc "lsp find reference"
+      "g r" #'lsp-find-references)
+(map! :leader
+      :desc "neotree toggle"
+      "t t" #'neotree-togle)
+(setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/home/dypan/lombok.jar" "-Xbootclasspath/a:/home/dypan/lombok.jar"))
