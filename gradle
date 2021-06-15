@@ -1,0 +1,14 @@
+https://github.com/redhat-developer/vscode-java/issues/634
+eclipse.classpath {
+  defaultOutputDir = file("build/default")
+  file.whenMerged { cp ->
+    cp.entries.forEach { cpe ->
+      if (cpe instanceof org.gradle.plugins.ide.eclipse.model.SourceFolder) {
+        cpe.output = cpe.output.replace "bin/", "build/classes/java/"
+      }
+      if (cpe instanceof org.gradle.plugins.ide.eclipse.model.Output) {
+        cpe.path = cpe.path.replace "bin/", "build/"
+      }
+    }
+  }
+}
