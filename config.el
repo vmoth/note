@@ -70,3 +70,10 @@
       :desc "neotree toggle"
       "t t" #'neotree-togle)
 (setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/home/dypan/lombok.jar" "-Xbootclasspath/a:/home/dypan/lombok.jar"))
+(defun rerun-last-search (arg)
+  (interactive "P")
+  (+ivy/project-search arg (car counsel-git-grep-history)))
+(map! :leader "s ." #'rerun-last-search)
+(after! projectile
+  (nconc projectile-globally-ignored-directories '(".stack-work" "node_modules" ".local" "build" "gradle")))
+(setq projectile-indexing-method 'alien)
