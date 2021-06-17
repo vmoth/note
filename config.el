@@ -67,13 +67,11 @@
       :desc "lsp find reference"
       "g r" #'lsp-find-references)
 (map! :leader
-      :desc "neotree toggle"
-      "t t" #'neotree-togle)
-(setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/home/dypan/lombok.jar" "-Xbootclasspath/a:/home/dypan/lombok.jar"))
-(defun rerun-last-search (arg)
-  (interactive "P")
-  (+ivy/project-search arg (car counsel-git-grep-history)))
-(map! :leader "s ." #'rerun-last-search)
-(after! projectile
-  (nconc projectile-globally-ignored-directories '(".stack-work" "node_modules" ".local" "build" "gradle")))
-(setq projectile-indexing-method 'alien)
+      :desc "neotree projectile action"
+      "t t" #'neotree-projectile-action)
+(setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/Users/dypan/lombok.jar" "-Xbootclasspath/a:/Users/dypan/lombok.jar"))
+(add-hook 'vue-mode-hook #'lsp!)
+(evilem-default-keybindings "SPC")
+(add-hook 'dap-server-log-mode-hook
+  (lambda ()
+   (local-set-key "h" 'evil-backward-char)))
