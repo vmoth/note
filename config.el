@@ -75,3 +75,14 @@
 (add-hook 'dap-server-log-mode-hook
   (lambda ()
    (local-set-key "h" 'evil-backward-char)))
+
+(defun mp-display-message ()
+  (interactive)
+  ;;; Place your code below this line, but inside the bracket.
+  (setq default-directory (projectile-project-root))
+  (compile '"./make.sh")
+  ;;(message "Hello, World %s" (projectile-project-root))
+  )
+
+(global-set-key (kbd "s-m") 'mp-display-message)
+
