@@ -85,4 +85,7 @@
   )
 
 (global-set-key (kbd "s-m") 'mp-display-message)
+(setq projectile-indexing-method 'alien)
+(setq doom-theme 'doom-dracula)
+
 
