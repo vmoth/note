@@ -87,5 +87,7 @@
 (global-set-key (kbd "s-m") 'mp-display-message)
 (setq projectile-indexing-method 'alien)
 (setq doom-theme 'doom-dracula)
-
+https://github.com/hlissner/doom-emacs/issues/2689
+(after! lsp-mode
+  (set-lsp-priority! 'clangd 1))  ; ccls has priority 0
 
