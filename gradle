@@ -1,5 +1,6 @@
 https://github.com/redhat-developer/vscode-java/issues/634
 https://github.com/hlissner/doom-emacs/issues/1650
+https://github.com/redhat-developer/vscode-java/issues/1660
 eclipse.classpath {
   defaultOutputDir = file("build/default")
   file.whenMerged { cp ->
