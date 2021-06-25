@@ -1,0 +1,2 @@
+LANG=C 7za x your-zip-file.zip
+convmv -f GBK -t utf8 --notest -r .
