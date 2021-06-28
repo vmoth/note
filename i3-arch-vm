@@ -8,3 +8,6 @@ https://wiki.archlinux.org/title/Fcitx_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#Em
 https://wiki.archlinux.org/title/Fcitx5_(%E7%AE%80%E4%BD%93%E4%B8%AD%E6%96%87)#%E8%BE%93%E5%85%A5%E6%B3%95%E5%BC%95%E6%93%8E
 
 pacman -S ttf-freefont ttf-liberation ttf-droid
+
+# unicode font
+sudo pacman -S noto-fonts noto-fonts-emoji ttf-linux-libertine ttf-dejavu
