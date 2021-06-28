@@ -11,3 +11,6 @@ pacman -S ttf-freefont ttf-liberation ttf-droid
 
 # unicode font
 sudo pacman -S noto-fonts noto-fonts-emoji ttf-linux-libertine ttf-dejavu
+
+# 调整分区大小
+sudo gparted
