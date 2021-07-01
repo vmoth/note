@@ -15,3 +15,18 @@ sudo pacman -S noto-fonts noto-fonts-emoji ttf-linux-libertine ttf-dejavu
 # 调整分区大小
 sudo gparted
 https://plugins.zhile.io
+
+alias java8="
+	export PATH=/home/dypan/dev/soft/jdk8u292-b10/bin:$(echo $PATH | sed 's/\/home\/dypan\/dev\/soft\/jdk-11.0.11+9\/bin://g') &&
+	export JAVA_HOME=/home/dypan/dev/soft/jdk8u292-b10/
+"
+
+	#export PATH=/home/dypan/dev/soft/jdk-11.0.11+9/bin:$newPath &&
+	#sudo ln -sf /home/dypan/dev/soft/jdk-11.0.11+9/bin/java /usr/local/bin/java
+alias java11="
+	export PATH=/home/dypan/dev/soft/jdk-11.0.11+9/bin:$(echo $PATH | sed 's/\/home\/dypan\/dev\/soft\/jdk8u292-b10\/bin://g') &&
+	export JAVA_HOME=/home/dypan/dev/soft/jdk-11.0.11+9/
+"
+
+java11
+
