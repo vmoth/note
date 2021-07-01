@@ -14,3 +14,4 @@ sudo pacman -S noto-fonts noto-fonts-emoji ttf-linux-libertine ttf-dejavu
 
 # 调整分区大小
 sudo gparted
+https://plugins.zhile.io
