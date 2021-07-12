@@ -36,3 +36,5 @@ https://wiki.haskell.org/Xmonad/Config_archive/nomeata%E2%80%99s_xmonad.hs
 
 
 python3 -m ensurepip --upgrade
+// 更新时间
+sudo ntpdate -u time.pool.aliyun.com
