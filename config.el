@@ -22,6 +22,16 @@
 ;; font string. You generally only need these two:
 ;; (setq doom-font (font-spec :family "monospace" :size 12 :weight 'semi-light)
 ;;       doom-variable-pitch-font (font-spec :family "sans" :size 13))
+;;(setq doom-font (font-spec :family "Fira Code" :size 12 :weight 'semi-light)
+;;      doom-variable-pitch-font (font-spec :family "Fira Code" :size 13))
+
+
+(setq doom-font (font-spec :family "agave Nerd Font Mono" :size 14 :weight 'semi-light)
+      doom-unicode-font (font-spec :family "Noto Sans CJK SC" :size 12)
+      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC" :size 12))
+
+
+;;(set-fontset-font t 'han (font-spec :family "Noto Sans CJK SC" :size 12))
 
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
@@ -54,6 +64,60 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+;;
+(defun dt/year-calendar (&optional year)
+  (interactive)
+  (require 'calendar)
+  (let* (
+      (current-year (number-to-string (nth 5 (decode-time (current-time)))))
+      (month 0)
+      (year (if year year (string-to-number (format-time-string "%Y" (current-time))))))
+    (switch-to-buffer (get-buffer-create calendar-buffer))
+    (when (not (eq major-mode 'calendar-mode))
+      (calendar-mode))
+    (setq displayed-month month)
+    (setq displayed-year year)
+    (setq buffer-read-only nil)
+    (erase-buffer)
+    ;; horizontal rows
+    (dotimes (j 4)
+      ;; vertical columns
+      (dotimes (i 3)
+        (calendar-generate-month
+          (setq month (+ month 1))
+          year
+          ;; indentation / spacing between months
+          (+ 5 (* 25 i))))
+      (goto-char (point-max))
+      (insert (make-string (- 10 (count-lines (point-min) (point-max))) ?\n))
+      (widen)
+      (goto-char (point-max))
+      (narrow-to-region (point-max) (point-max)))
+    (widen)
+    (goto-char (point-min))
+    (setq buffer-read-only t)))
+
+(defun dt/scroll-year-calendar-forward (&optional arg event)
+  "Scroll the yearly calendar by year in a forward direction."
+  (interactive (list (prefix-numeric-value current-prefix-arg)
+                     last-nonmenu-event))
+  (unless arg (setq arg 0))
+  (save-selected-window
+    (if (setq event (event-start event)) (select-window (posn-window event)))
+    (unless (zerop arg)
+      (let* (
+              (year (+ displayed-year arg)))
+        (dt/year-calendar year)))
+    (goto-char (point-min))
+    (run-hooks 'calendar-move-hook)))
+
+(defun dt/scroll-year-calendar-backward (&optional arg event)
+  "Scroll the yearly calendar by year in a backward direction."
+  (interactive (list (prefix-numeric-value current-prefix-arg)
+                     last-nonmenu-event))
+  (dt/scroll-year-calendar-forward (- (or arg 1)) event))
+(defalias 'year-calendar 'dt/year-calendar)
+
 (global-set-key [f5] 'dap-debug)
 (global-set-key [f9] 'dap-breakpoint-toggle)
 (global-set-key [f10] 'dap-next)
@@ -69,12 +133,21 @@
 (map! :leader
       :desc "neotree projectile action"
       "t t" #'neotree-projectile-action)
-(setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/Users/dypan/lombok.jar" "-Xbootclasspath/a:/Users/dypan/lombok.jar"))
+(map! :leader
+      :desc "show vterm"
+      "v t" #'mp-display-vterm)
+
+
+(setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/home/dypan/lombok.jar"))
+(setq lsp-java-java-path "/home/dypan/dev/soft/jdk-11.0.11+9/bin/java")
+
 (add-hook 'vue-mode-hook #'lsp!)
 (evilem-default-keybindings "SPC")
 (add-hook 'dap-server-log-mode-hook
   (lambda ()
    (local-set-key "h" 'evil-backward-char)))
+
+;;(setq explicit-shell-file-name "/usr/bin/zsh")
 
 (defun mp-display-message ()
   (interactive)
@@ -84,12 +157,21 @@
   ;;(message "Hello, World %s" (projectile-project-root))
   )
 
+(defun mp-display-vterm ()
+  (interactive)
+  ;;; Place your code below this line, but inside the bracket.
+  (setq default-directory (projectile-project-root))
+  (vterm)
+  ;;(message "Hello, World %s" (projectile-project-root))
+  )
+
+
+
 (global-set-key (kbd "s-m") 'mp-display-message)
 (setq projectile-indexing-method 'alien)
 (setq doom-theme 'doom-dracula)
-https://github.com/hlissner/doom-emacs/issues/2689
-(after! lsp-mode
-  (set-lsp-priority! 'clangd 1))  ; ccls has priority 0
+;;(after! lsp-mode
+;;  (set-lsp-priority! 'clangd 1))  ; ccls has priority 0
 
 (defun set-exec-path-from-shell-PATH ()
   "Set up Emacs' `exec-path' and PATH environment variable to match that used by the user's shell.
@@ -99,4 +181,3 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
   (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
-
