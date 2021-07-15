@@ -181,3 +181,11 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
   (let ((path-from-shell (replace-regexp-in-string "[ \t\n]*$" "" (shell-command-to-string "$SHELL --login -i -c 'echo $PATH'"))))
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
+
+;; we need this wrapper to match Projectile's API
+(defun projectile-project-current (dir)
+  "Retrieve the root directory of the project at DIR using `project-current'."
+  (cdr (project-current nil dir)))
+
+(setq projectile-project-root-functions '(projectile-project-current))
+
