@@ -14,3 +14,8 @@ eclipse.classpath {
     }
   }
 }
+
+task copyClasses(type: Copy) {
+        from "build/classes/java/main" // shortcut for createJar.outputs.files
+        into "bin/main"
+    }
