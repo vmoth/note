@@ -19,3 +19,35 @@ task copyClasses(type: Copy) {
         from "build/classes/java/main" // shortcut for createJar.outputs.files
         into "bin/main"
     }
+
+// spring-framework
+task copyClasses(type: Copy) {
+		from "build/resources/test" // shortcut for createJar.outputs.files
+        into "bin/test"
+
+		from "build/resources/main" // shortcut for createJar.outputs.files
+        into "bin/main"
+
+        from "build/classes/java/main" // shortcut for createJar.outputs.files
+        into "bin/main"
+
+		from "build/classes/java/main" // shortcut for createJar.outputs.files
+        into "bin/test"
+
+        from "build/classes/groovy/main" // shortcut for createJar.outputs.files
+		into "bin/main"
+
+		from "build/classes/groovy/main" // shortcut for createJar.outputs.files
+		into "bin/test"
+
+		from "build/classes/java/test"
+		into "bin/test"
+
+		from "build/classes/java/testFixtures"
+		into "bin/testFixtures"
+
+		from "build/classes/java/testFixtures"
+		into "bin/test"
+
+
+    }
