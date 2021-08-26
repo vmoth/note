@@ -1,5 +1,9 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 (require 'dap-cpptools)
+(require 'dap-node)
+(require 'dap-go)
+(require 'dap-python)
+(require 'dap-java)
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
@@ -26,9 +30,18 @@
 ;;      doom-variable-pitch-font (font-spec :family "Fira Code" :size 13))
 
 
-(setq doom-font (font-spec :family "agave Nerd Font Mono" :size 14 :weight 'semi-light)
-      doom-unicode-font (font-spec :family "Noto Sans CJK SC" :size 12)
-      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC" :size 12))
+;;(setq doom-font (font-spec :family "agave Nerd Font Mono" :size 14 :weight 'semi-light))
+;; Set font for chinese characters
+;; Font should be twice the width of asci chars so that org tables align
+;; This will break if run in terminal mode, so use conditional to only run for GUI.
+
+;;(set-fontset-font t 'han (font-spec :family "Noto Sans CJK SC" :size 12))
+;;(setq doom-emoji-fallback-font-families "Noto Color Emoji")
+;;(set-fontset-font t '(?😊 . ?😎) "Noto Color Emoji" nil 'append)
+;;(set-fontset-font t nil "Courier New" nil 'append)
+;;(setq doom-font (font-spec :family "agave Nerd Font Mono" :size 14 :weight 'semi-light)
+;;      doom-unicode-font (font-spec :family "Noto Sans CJK SC" :size 12)
+;;      doom-variable-pitch-font (font-spec :family "Noto Sans CJK SC" :size 12))
 
 
 ;;(set-fontset-font t 'han (font-spec :family "Noto Sans CJK SC" :size 12))
@@ -135,13 +148,25 @@
       "t t" #'neotree-projectile-action)
 (map! :leader
       :desc "show vterm"
-      "v t" #'mp-display-vterm)
+      "v t" #'projectile-run-vterm)
+(map! :leader
+      :desc "show vterm"
+      "m m" #'mp-display-message)
+
+
 
 
 (setq lsp-java-vmargs '("-noverify" "-Xmx1G" "-XX:+UseG1GC" "-XX:+UseStringDeduplication" "-javaagent:/home/dypan/lombok.jar"))
 (setq lsp-java-java-path "/home/dypan/dev/soft/jdk-11.0.11+9/bin/java")
 
 (add-hook 'vue-mode-hook #'lsp!)
+;;(add-hook 'vue-mode-hook
+;;  (lambda ()
+;;        (interactive)
+;;        ;;(message "Hello, World")))
+;;   (doom/set-indent-width 2)))
+
+
 (evilem-default-keybindings "SPC")
 (add-hook 'dap-server-log-mode-hook
   (lambda ()
@@ -158,16 +183,14 @@
   )
 
 (defun mp-display-vterm ()
-  (interactive)
+  ;;(interactive)
   ;;; Place your code below this line, but inside the bracket.
-  (setq default-directory (projectile-project-root))
-  (vterm)
+  ;;(setq default-directory (projectile-project-root))
+  (projectile-run-vterm)
   ;;(message "Hello, World %s" (projectile-project-root))
   )
 
-
-
-(global-set-key (kbd "s-m") 'mp-display-message)
+;;(global-set-key (kbd "C-m") 'mp-display-message)
 (setq projectile-indexing-method 'alien)
 (setq doom-theme 'doom-dracula)
 ;;(after! lsp-mode
@@ -182,10 +205,59 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
     (setenv "PATH" path-from-shell)
     (setq exec-path (split-string path-from-shell path-separator))))
 
+
 ;; we need this wrapper to match Projectile's API
 (defun projectile-project-current (dir)
   "Retrieve the root directory of the project at DIR using `project-current'."
   (cdr (project-current nil dir)))
 
 (setq projectile-project-root-functions '(projectile-project-current))
+;;(add-to-list 'company-backends #'company-tabnine)
+
+;;(setq +lsp-company-backends '(company-tabnine company-capf company-yasnippet))
+;;(set-company-backend! 'prog-mode 'company-tabnine 'company-capf 'company-yasnippet)
+;;;; Trigger completion immediately.
+;;(setq company-idle-delay 0)
+;;;;(setq company-dabbrev-downcase 0)
+;;;; Number the candidates (use M-1, M-2 etc to select completions).
+;;(setq company-show-numbers t)
+
+(setq tab-width 2)
+(setq indent-tabs-mode nil)
+(setq evil-indent-convert-tabs nil)
+(global-set-key (kbd "TAB") 'tab-to-tab-stop)
+(setq indent-line-function 'indent-relative-first-indent-point)
+(modify-syntax-entry ?_ "w")
+
+(setq company-show-numbers t)
+;;(setq company-idle-delay 0)
+;;
+;;(set-company-backend! 'prog-mode
+;;  'company-tabnine 'company-capf 'company-yasnippet)
+;;(setq +lsp-company-backend '(company-capf :with company-tabnine :separate))
+;;(setq +lsp-company-backend '(company-lsp :with company-tabnine :separate))
+;;(setq lsp-java-server-install-dir "/home/dypan/eclipse/")
+;;(setq lsp-java-jdt-download-url "https://download.eclipse.org/jdtls/milestones/1.1.2/jdt-language-server-1.1.2-202105191944.tar.gz")
+;;(setq lsp-java-jdt-download-url "http://download.eclipse.org/che/che-ls-jdt/snapshots/che-jdt-language-server-latest.tar.gz")
+
+;;(setq company-minimum-prefix-length 1)
+;;(setq company-auto-complete nil)
+;;(setq company-idle-delay 0)
+;;(setq company-require-match 'true)
+;;(company-tng-configure-default)
+(setq +lsp-company-backends '(:separate company-tabnine company-capf company-yasnippet))
+
+(setq lsp-java-jdt-download-url "https://download.eclipse.org/jdtls/milestones/1.0.0/jdt-language-server-1.0.0-202104151857.tar.gz")
+(setq dap-print-io t)
+;;(add-to-list 'company-backends #'company-tabnine)
+(add-hook 'vue-mode-hook (lambda () (setq js-indent-level 2)))
+
+;;(set-fontset-font t 'han (font-spec :family "Noto Sans CJK SC" :size 11))
+(dolist (charset '(kana han cjk-misc bopomofo))
+  (set-fontset-font (frame-parameter nil 'font)
+    charset (font-spec :family "Noto Sans CJK SC" :size 12)))
+
+(dolist (charset '(ascii))
+  (set-fontset-font (frame-parameter nil 'font)
+    charset (font-spec :family "agave Nerd Font Mono" :size 14 :weight 'semi-light)))
 
