@@ -17,3 +17,9 @@ PUT /msgcenter-12/_settings
 }
 
 wget https://github.com/neovim/neovim/releases/download/nightly/nvim-linux64.tar.gz
+
+https://github.com/opsnull/follow-me-install-kubernetes-cluster
+
+https://zhaohuabing.com/post/2020-02-24-linux-taptun/
+
+https://jimmysong.io/kubernetes-handbook/practice/install-kubernetes-on-centos.html
