@@ -261,3 +261,18 @@ This is particularly useful under Mac OSX, where GUI apps are not started from a
   (set-fontset-font (frame-parameter nil 'font)
     charset (font-spec :family "agave Nerd Font Mono" :size 14 :weight 'semi-light)))
 
+
+ (setq doom-font (font-spec :family "Victor Mono" :size 13)
+       doom-variable-pitch-font (font-spec :family "Victor Mono" :size 13))
+
+
+
+(setq company-idle-delay 0)
+
+(setq company-show-numbers t)
+
+
+(custom-set-faces!
+  '(font-lock-type-face :slant italic)
+  '(font-lock-comment-face :slant italic)
+  '(font-lock-keyword-face :slant italic))
