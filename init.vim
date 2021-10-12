@@ -1,8 +1,12 @@
 set number                     " Show current line number
 set relativenumber             " Show relative line numbers
+set smartindent
+set autoindent
 set clipboard=unnamed
 set encoding=utf-8
 set nocompatible
+set listchars=tab:\|\ 
+set list
 " 定义快捷键的前缀，即<Leader>
 let mapleader=","
 " 开启文件类型侦测
@@ -39,7 +43,7 @@ nnoremap <Leader>jw <C-W>j
 " 定义快捷键在结对符之间跳转
 nmap <Leader>M %
 " 让配置变更立即生效
-autocmd BufWritePost $MYVIMRC source $MYVIMRC
+"autocmd BufWritePost $MYVIMRC source $MYVIMRC
 " 开启实时搜索功能
 set incsearch
 " 搜索时大小写不敏感
@@ -58,19 +62,28 @@ set rtp+=~/.vim/bundle/Vundle.vim
 " vundle 管理的插件列表必须位于 vundle#begin() 和 vundle#end() 之间
 "call vundle#begin()
 "Plug 'VundleVim/Vundle.vim'
+"Plug 'leoluz/nvim-dap-go'
+"Plug 'mfussenegger/nvim-dap'
+Plug 'vim-test/vim-test'
 Plug 'altercation/vim-colors-solarized'
 Plug 'dracula/vim'
 Plug 'tomasr/molokai'
 Plug 'liuchengxu/vista.vim'
+Plug 'tpope/vim-commentary'
+"Plug 'Chiel92/vim-autoformat'
 "Plug 'ludovicchabant/vim-gutentags'
 Plug 'vim-scripts/phd'
+Plug 'tpope/vim-surround'
+Plug 'rakr/vim-one'
+Plug 'tpope/vim-sleuth'
 "Plug 'Lokaltog/vim-powerline'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "Plug 'octol/vim-cpp-enhanced-highlight'
 "Plug 'nathanaelkane/vim-indent-guides'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
 "Plug 'derekwyatt/vim-fswitch'
 "Plug 'kshenoy/vim-signature'
 "Plug 'vim-scripts/BOOKMARKS--Mark-and-Highlight-Full-Lines'
@@ -99,6 +112,7 @@ Plug 'vim-scripts/findstr.vim'
 Plug 'skywind3000/asyncrun.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'mileszs/ack.vim'
+Plug 'vim-test/vim-test'
 
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'puremourning/vimspector'
@@ -106,7 +120,10 @@ Plug 'szw/vim-maximizer'
 " Use release branch (Recommend)
 " " Use release branch (recommend)
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"---
+"Plug 'neovim/nvim-lspconfig'
 Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
+"---
 "Plug 'neoclide/coc.nvim', {'branch': 'release', 'do': { -> coc#util#install()}}
 "Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'HerringtonDarkholme/yats.vim' " TS Syntax
@@ -131,7 +148,6 @@ set backspace=2
 let g:syntastic_java_checkers = []
 " 配色方案
 set background=dark
-"colorscheme nord
 colorscheme dracula
 " 禁止光标闪烁
 " set gcr=a:block-blinkon0
@@ -211,7 +227,7 @@ nmap <Leader>fl :NERDTreeToggle<CR>
 nmap <Leader>fs :NERDTreeFocus<CR>
 
 nmap <Leader>ff :CtrlP<CR>
-nmap <Leader>fm :ClangFormat<CR>
+"nmap <Leader>fm :Autoformat<CR>
 nmap <leader>aa :CocAction<CR>
 nmap <leader>sk :resize +10<CR>
 nmap <leader>sj :resize -10<CR>
@@ -244,9 +260,9 @@ let tagbar_width=32
 let g:tagbar_compact=1
 " 设置 ctags 对哪些代码标识符生成标签
 " 正向遍历同名标签
-nmap <Leader>tn :tnext<CR>
+"nmap <Leader>tn :tnext<CR>
 " 反向遍历同名标签
-nmap <Leader>tp :tprevious<CR>
+"nmap <Leader>tp :tprevious<CR>
 
 " 设置插件 indexer 调用 ctags 的参数
 " 默认 --c++-kinds=+p+l，重新设置为 --c++-kinds=+p+l+x+c+d+e+f+g+m+n+s+t+u+v
@@ -286,7 +302,6 @@ nmap <leader>t :NERDTreeFind<CR>
 
 nmap <F1> :CocCommand java.debug.vimspector.start<CR>
 
- 
 " Thanks to https://forums.handmadehero.org/index.php/forum?view=topic&catid=4&id=704#3982
 " error message formats
 " Microsoft MSBuild
@@ -299,23 +314,30 @@ set errorformat+=\\\ %#%f(%l\\\,%c-%*[0-9]):\ %#%t%[A-z]%#\ %m
 " 自动打开 quickfix window ，高度为 6
 let g:asyncrun_open = 6 
 
+function! NearestMethodOrFunction()
+  return get(b:, 'vista_nearest_method_or_function', '')
+endfunction
+
 function! DoBuildBatchFile()
-    AsyncRun ./make.sh
+    "AsyncRun ./make.sh
     " Open the output buffer
-    "copen
     "echo 'Build Complete'
+    "let firstLine = get(b:, 'vista_nearest_method_or_function', '')
+    "let wordUnderCursor = expand("<cword>")
+    echo 'hello'
 endfunction
  
 " Set F7 to build. I like this since I use visual studio with the c++ build env
 nnoremap <Leader>m :call DoBuildBatchFile()<CR>
+map <silent> <F6> :call DoBuildBatchFile()<CR>
  
 "Go to next error
 nnoremap <Leader>n :cn<CR>
 "Go to previous error
 nnoremap <Leader>b :cp<CR>
 map <F8> :let mycurf=expand("<cfile>")<cr><c-w> w :execute("e ".mycurf)<cr><c-w>p
-nnoremap <Leader>f :call CocAction('runCommand', 'prettier.formatFile')<CR>
-"vmap <leader>f  <Plug>(coc-format-selected)<CR>
+nnoremap <Leader>fm :call CocAction('runCommand', 'prettier.formatFile')<CR>
+vmap <leader>f  <Plug>(coc-format-selected)<CR>
 
 
 " coc config
@@ -534,7 +556,13 @@ function! NearestMethodOrFunction() abort
   return get(b:, 'vista_nearest_method_or_function', '')
 endfunction
 
-set statusline+=%{NearestMethodOrFunction()}
+function! CocFunc()
+    let currentFunctionSymbol = get(b:, 'coc_current_function', '')
+    return currentFunctionSymbol !=# '' ? "\uf6a6 " .currentFunctionSymbol : ''
+endfunction
+
+"set statusline+=%{NearestMethodOrFunction()}
+set statusline+=%{CocFunc()}
 
 " By default vista.vim never run if you don't call it explicitly.
 "
@@ -545,12 +573,35 @@ autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
 let g:neovide_cursor_vfx_mode = "railgun"
 
-" Using lua functions
+map <Leader><leader>h <Plug>(easymotion-linebackward)
+map <Leader><leader>l <Plug>(easymotion-lineforward)
+let test#java#runner = 'gradletest'
+
+
+" Find files using Telescope command-line sugar.
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+" Using Lua functions
 nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
 nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
 nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
 nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>fp <cmd>lua require('telescope.builtin').oldfiles()<cr>
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+tnoremap <Esc> <C-\><C-n>
 
-map <Leader><leader>h <Plug>(easymotion-linebackward)
-map <Leader><leader>l <Plug>(easymotion-lineforward)
+"nnoremap <silent> <F5> :lua require'dap'.continue()<CR>
+"nnoremap <silent> <F10> :lua require'dap'.step_over()<CR>
+"nnoremap <silent> <F11> :lua require'dap'.step_into()<CR>
+"nnoremap <silent> <F12> :lua require'dap'.step_out()<CR>
+"nnoremap <silent> <leader>b :lua require'dap'.toggle_breakpoint()<CR>
+"nnoremap <silent> <leader>B :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+"nnoremap <silent> <leader>lp :lua require'dap'.set_breakpoint(nil, nil, vim.fn.input('Log point message: '))<CR>
+"nnoremap <silent> <leader>dr :lua require'dap'.repl.open()<CR>
+"nnoremap <silent> <leader>dl :lua require'dap'.run_last()<CR>
+"
+"lua require('dap-go').setup()
