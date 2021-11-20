@@ -25,3 +25,5 @@ https://zhaohuabing.com/post/2020-02-24-linux-taptun/
 https://jimmysong.io/kubernetes-handbook/practice/install-kubernetes-on-centos.html
 
 https://jython.readthedocs.io/en/latest/JythonAndJavaIntegration/
+
+https://community.amd.com/t5/drivers-software/can-t-install-amdgpu-drivers-on-ubuntu-20-04-1-5-4-0-56-generic/td-p/426676
