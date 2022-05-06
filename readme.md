@@ -33,3 +33,8 @@ sql in exists diff
 
 tmux tree color
 https://tomlankhorst.nl/iterm-tmux-vim-true-color/
+
+quay.io替换为quay-mirror.qiniu.com
+gcr.io/google-containers替换为gcr.azk8s.cn/google-containers
+
+https://www.ulovecode.com/2019/05/23/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E4%BD%BF%E7%94%A8Kubespray%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Kubernetes%E9%9B%86%E7%BE%A4%EF%BC%881.14.1%EF%BC%89/
