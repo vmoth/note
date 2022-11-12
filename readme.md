@@ -38,3 +38,34 @@ quay.io替换为quay-mirror.qiniu.com
 gcr.io/google-containers替换为gcr.azk8s.cn/google-containers
 
 https://www.ulovecode.com/2019/05/23/%E5%AE%B9%E5%99%A8%E6%8A%80%E6%9C%AF/Kubernetes/%E4%BD%BF%E7%94%A8Kubespray%E5%9C%A8%E9%98%BF%E9%87%8C%E4%BA%91%E4%B8%8A%E8%87%AA%E5%8A%A8%E5%8C%96%E9%83%A8%E7%BD%B2Kubernetes%E9%9B%86%E7%BE%A4%EF%BC%881.14.1%EF%BC%89/
+
+
+
+sudo pacman -S wireguard-tools
+sudo pacman -s fcits5-chinese-addons fcitx5-im
+sudo pacman -S fcits5-chinese-addons fcitx5-im
+sudo pacman -S fcitx5-chinese-addons fcitx5-im
+sudo pacman -S fcitx5-qt fcitx5-gtk
+sudo pacman -S vim neovim
+sudo pacman -S xmonad xmonad-contrib
+sudo pacman -S tmux
+sudo pacman -S ranger
+sudo pacman -S noto-fonts-cjk
+sudo pacman -S ttf-font-awesome
+sudo pacman -S zsh xmobar alacritty
+yay -S google-chrome
+yay -S nerd-fonts-anonymous-pro
+
+~/.local/bin/
+~/.tmux.conf
+~/.tmux/
+~/.config/nvim
+~/jdtls
+~/.vim/plugged
+~/lombok.jar
+~/.xmonad
+~/.xmobarrc
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
