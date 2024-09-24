@@ -4,6 +4,9 @@
 (require 'dap-go)
 (require 'dap-python)
 (require 'dap-java)
+(setq evil-insert-state-cursor '(box "#fb8b05")
+      evil-normal-state-cursor '(box "purple"))
+
 
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
