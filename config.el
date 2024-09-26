@@ -16,6 +16,9 @@
 ;; clients, file templates and snippets.
 (setq user-full-name "John Doe"
       user-mail-address "john@doe.com")
+(dolist (script '(cjk-misc han))
+  (set-fontset-font t script "Noto Sans SC"))
+
 
 ;; Doom exposes five (optional) variables for controlling fonts in Doom. Here
 ;; are the three important ones:
