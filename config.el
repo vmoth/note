@@ -7,7 +7,7 @@
 (setq evil-insert-state-cursor '(box "#fb8b05")
       evil-normal-state-cursor '(box "purple"))
 
-
+(define-key input-decode-map [?\C-i] [C-i])
 ;; Place your private configuration here! Remember, you do not need to run 'doom
 ;; sync' after modifying this file!
 
