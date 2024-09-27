@@ -6,6 +6,13 @@
 (require 'dap-java)
 (setq evil-insert-state-cursor '(box "#fb8b05")
       evil-normal-state-cursor '(box "purple"))
+(setq gc-cons-threshold 100000000)
+(setq read-process-output-max (* 1024 1024)) ;; 1mb
+(setenv "LSP_USE_PLISTS" "1")
+(setq lsp-log-io nil) ; if set to true can cause a performance hit
+
+(global-set-key [f12] 'neotree-show)
+(setq-default neo-window-width 40)
 
 (define-key input-decode-map [?\C-i] [C-i])
 ;; Place your private configuration here! Remember, you do not need to run 'doom
