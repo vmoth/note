@@ -70,7 +70,11 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
-
+(after! lsp-volar
+  ;; remove :system after lsp-volar loaded
+  (lsp-dependency 'typescript
+                  '(:npm :package "typescript"
+                    :path "tsserver")))
 
 macos
 Spectacle
