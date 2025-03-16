@@ -80,3 +80,6 @@ macos
 Spectacle
 alfred
 iterm
+
+
+https://www.ovistoica.com/blog
