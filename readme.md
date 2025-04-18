@@ -79,6 +79,10 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 macos
 Spectacle
 alfred
+
+(add-to-list 'default-frame-alist
+             '(font . "RecMonoCasual Nerd Font Propo-11"))
+
 iterm
 
 
