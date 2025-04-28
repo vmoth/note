@@ -85,5 +85,12 @@ alfred
 
 iterm
 
+ghotty
+font-family = "RecMonoCasual Nerd Font Propo"
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+theme = catppuccin-frappe
+
 
 https://www.ovistoica.com/blog
