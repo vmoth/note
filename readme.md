@@ -94,3 +94,5 @@ theme = catppuccin-frappe
 
 
 https://www.ovistoica.com/blog
+
+人大金仓 数据类型没有隐式转换。
