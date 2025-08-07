@@ -99,6 +99,8 @@ https://www.ovistoica.com/blog
 
 
 evil emacs
+
+```lisp
 (defun myhook-evil-mode ()
   ;; I want underscore be part of word syntax table, but not in regexp-replace buffer
   ;; where I'm more comfortable having more verbose navigation with underscore not
@@ -109,3 +111,4 @@ evil emacs
     ;; make underscore part of a word
     (modify-syntax-entry ?_ "w")))
 (add-hook 'evil-local-mode-hook 'myhook-evil-mode)
+```lisp
