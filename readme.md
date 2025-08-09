@@ -111,4 +111,12 @@ evil emacs
     ;; make underscore part of a word
     (modify-syntax-entry ?_ "w")))
 (add-hook 'evil-local-mode-hook 'myhook-evil-mode)
+
+设置evil光标的样式
 ```lisp
+(setq evil-default-cursor (quote (t "#DD7694"))
+    evil-visual-state-cursor '("#880000" box)
+    evil-normal-state-cursor '("#DD7694" box)
+    evil-insert-state-cursor '("#C3D94E" box)
+    )
+
