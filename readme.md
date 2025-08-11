@@ -112,11 +112,46 @@ evil emacs
     (modify-syntax-entry ?_ "w")))
 (add-hook 'evil-local-mode-hook 'myhook-evil-mode)
 
-设置evil光标的样式
+
 ```lisp
 (setq evil-default-cursor (quote (t "#DD7694"))
     evil-visual-state-cursor '("#880000" box)
     evil-normal-state-cursor '("#DD7694" box)
     evil-insert-state-cursor '("#C3D94E" box)
     )
+
+(use-package nerd-icons
+  :ensure t
+  ;; :custom
+  ;; The Nerd Font you want to use in GUI
+  ;; "Symbols Nerd Font Mono" is the default and is recommended
+  ;; but you can use any other Nerd Font if you want
+  ;; (nerd-icons-font-family "Symbols Nerd Font Mono")
+  )
+(use-package doom-themes
+  :ensure t
+  :config
+  (custom-set-faces
+  `(default ((t (:family "Fira Code" :height 120))))
+  )
+  :custom
+  ;; Global settings (defaults)
+  (doom-themes-enable-bold t)   ; if nil, bold is universally disabled
+  (doom-themes-enable-italic t) ; if nil, italics is universally disabled
+  ;; for treemacs users
+  ;;(doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  (doom-themes-treemacs-theme "doom-atom") ; use "doom-colors" for less minimal icon theme
+  :config
+  (load-theme 'doom-one-light t)
+  ;;(set-default-font "BlexMono Nerd Font-12")
+
+  ;; Enable flashing mode-line on errors
+  (doom-themes-visual-bell-config)
+  ;; Enable custom neotree theme (nerd-icons must be installed!)
+  (doom-themes-neotree-config)
+  ;; or for treemacs users
+  (doom-themes-treemacs-config)
+  ;; Corrects (and improves) org-mode's native fontification.
+  (doom-themes-org-config))
+
 
