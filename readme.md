@@ -153,6 +153,7 @@ evil emacs
   (doom-themes-treemacs-config)
   ;; Corrects (and improves) org-mode's native fontification.
   (doom-themes-org-config))
-
+```
+Pearcleaner
 
 https://bbs.weixinrj.com/thread-13661-1-1.html
