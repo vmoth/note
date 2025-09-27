@@ -157,3 +157,6 @@ evil emacs
 Pearcleaner
 
 https://bbs.weixinrj.com/thread-13661-1-1.html
+
+exec-once=swayidle timeout 600 'hyprctl dispatcher dpms off && hyprlock'
+
