@@ -160,5 +160,7 @@ https://bbs.weixinrj.com/thread-13661-1-1.html
 
 https://v2ex.com/t/1168391#reply42
 
+https://bbs.archlinux.org/viewtopic.php?id=297785
+
 exec-once=swayidle timeout 600 'hyprctl dispatcher dpms off && hyprlock'
 
