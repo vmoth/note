@@ -164,3 +164,4 @@ https://bbs.archlinux.org/viewtopic.php?id=297785
 
 exec-once=swayidle timeout 600 'hyprctl dispatcher dpms off && hyprlock'
 
+https://github.com/Haixing-Hu/latex-chinese-fonts
